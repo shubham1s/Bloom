@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:BLOOM_BETA/services/auth_service.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:BLOOM_BETA/services/provider.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:international_phone_input/international_phone_input.dart';
@@ -120,7 +121,7 @@ class _SignUpViewState extends State<SignUpView> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
+    // final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
     if (authFormType == AuthFormType.anonymous) {
@@ -143,34 +144,53 @@ class _SignUpViewState extends State<SignUpView> {
           ));
     } else {
       return Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            color: primaryColor,
-            height: _height,
-            width: _width,
-            child: SafeArea(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: _height * 0.025),
-                  showAlert(),
-                  SizedBox(height: _height * 0.025),
-                  buildHeaderText(),
-                  SizedBox(height: _height * 0.05),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: buildInputs() + buildButtons(),
-                      ),
-                    ),
-                  ),
-                ],
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(children: <Widget>[
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF0FCEF9),
+                    Color(0xFF0DF5F5),
+                    Color(0xFF0FCEF4),
+                    Color(0xFF0FCEF4),
+                  ],
+                  stops: [0.1, 0.4, 0.7, 0.9],
+                ),
               ),
             ),
-          ),
+            Container(
+              child: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: _height * 0.025),
+                    showAlert(),
+                    SizedBox(height: _height * 0.025),
+                    buildHeaderText(),
+                    SizedBox(height: _height * 0.05),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: buildInputs() + buildButtons(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ]),
         ),
-      );
+      ));
     }
   }
 
@@ -295,7 +315,7 @@ class _SignUpViewState extends State<SignUpView> {
             decoration: buildSignUpInputDecoration("Enter Phone Number"),
             onPhoneNumberChange: onPhoneNumberChange,
             initialPhoneNumber: _phone,
-            initialSelection: 'US',
+            initialSelection: 'IND',
             showCountryCodes: true),
       );
       textFields.add(SizedBox(height: 20));

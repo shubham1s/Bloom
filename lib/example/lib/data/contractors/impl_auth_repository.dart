@@ -1,3 +1,4 @@
+import 'package:BLOOM_BETA/example/lib/blocs/auth_bloc/auth_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './impl_base_repository.dart';
 
@@ -19,4 +20,6 @@ abstract class IAuthRepository extends IBaseRepository {
 
   /// log out current user
   Future<void> logOut();
+
+  add(AppStarted appStarted) {}
 }

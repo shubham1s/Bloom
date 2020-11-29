@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  /// color for welcome [Handy] text
+  /// color for welcome text
   static const Color handyTextColor = Color(0xFF3F3D56);
 
   /// primary color of app

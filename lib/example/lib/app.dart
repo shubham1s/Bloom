@@ -1,5 +1,3 @@
-import 'package:BLOOM_BETA/example/lib/presentation/pages/home/home_page.dart';
-import 'package:BLOOM_BETA/example/lib/presentation/pages/welcome/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,13 +7,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import './blocs/auth_bloc/auth_bloc.dart';
 import './data/repositories/auth_repository.dart';
 import './presentation/pages/auth/auth_page.dart';
-import 'package:flutter/src/widgets/router.dart';
 
-import './presentation/router.dart';
 import './presentation/shared/app_themes.dart';
 import './presentation/shared/supported_locales.dart';
 import './utils/localization_helper/app_localizations.dart';
-import 'utils/constants/routes.dart';
 
 /// starting point of app
 /// defines [Global Blocs], [Repositories], [Theme],
@@ -33,7 +28,8 @@ class HandyApp extends StatelessWidget {
       ),
       child: BlocProvider<AuthBloc>(
         create: (context) =>
-            AuthBloc(context.repository<AuthRepository>())..add(AppStarted()),
+            AuthBloc(RepositoryProvider.of<AuthRepository>(context))
+              ..add(AppStarted()),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'BLOOM',

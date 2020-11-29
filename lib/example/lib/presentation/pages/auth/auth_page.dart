@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/auth_bloc/auth_bloc.dart';
 import '../../../utils/constants/routes.dart';
-import '../splash/splash_page.dart';
 
 /// page to handle authentication process
 /// if the user is authenticated, navigates to [HomePage]
