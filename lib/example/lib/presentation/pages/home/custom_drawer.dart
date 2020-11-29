@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// builds drawer of [Handy]
+/// builds drawer of [BLOOM]
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
                 height: 20,
               ),
               ListTile(
-                title: Text('Jake'),
+                title: Text('Shubham'),
                 onTap: null,
               ),
               SizedBox(height: 20),
@@ -44,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
                     await showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                        title: Text('Sign out of Handy'),
+                        title: Text('Sign out of BLOOM'),
                         content: Text('Do you want to sign out?'),
                         actions: <Widget>[
                           FlatButton(
