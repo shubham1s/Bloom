@@ -28,12 +28,32 @@ class CustomDrawer extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ListTile(
-                title: Text('Notifications'),
-                onTap: () {},
+                title: Text('Calorie Calculator '),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/calorie');
+                },
+              ),
+              ListTile(
+                title: Text('fit data '),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/fitdat');
+                },
+              ),
+              SizedBox(
+                height: 15,
               ),
               ListTile(
                 title: Text('Settings'),
                 onTap: () {},
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              ListTile(
+                title: Text('Health Data'),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/health');
+                },
               ),
               SizedBox(
                 height: 15,
@@ -51,7 +71,12 @@ class CustomDrawer extends StatelessWidget {
                             child: Text('No'),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
-                          FlatButton(child: Text('Yes'), onPressed: () {}),
+                          FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushReplacementNamed('/onb');
+                              }),
                         ],
                       ),
                       barrierDismissible: false,

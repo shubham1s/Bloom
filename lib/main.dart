@@ -1,14 +1,17 @@
 // import 'package:BLOOM_BETA/ui_pages/login.dart';
+import 'package:BLOOM_BETA/fitness_app/fitness_app_home_screen.dart';
+import 'package:BLOOM_BETA/heart/chart.dart';
+import 'package:BLOOM_BETA/ui_pages/calorie.dart';
 import 'package:BLOOM_BETA/ui_pages/onb_sceen.dart';
 import 'package:BLOOM_BETA/ui_pages/sign_up1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:BLOOM_BETA/heart/fit.dart';
 import 'package:flutter/material.dart';
 import 'package:BLOOM_BETA/services/auth_service.dart';
 import 'package:BLOOM_BETA/services/provider.dart';
 
-import 'example/lib/presentation/pages/home/home_page.dart';
+//import 'example/lib/presentation/pages/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,11 +47,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         home: HomeController(),
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomeController(),
+          '/homepage': (BuildContext context) => FitnessAppHomeScreen(),
+          '/fitdat': (BuildContext context) => FitDat(),
+          '/onb': (BuildContext context) => OnboardingScreen(),
+          '/health': (BuildContext context) => HealthFit(),
+          '/calorie': (BuildContext context) =>
+              CaloriePage(title: 'Calorie Calculator'),
           '/login': (BuildContext context) => SignUpView(
                 authFormType: AuthFormType.signUp,
               ),
           '/signIn': (BuildContext context) =>
               SignUpView(authFormType: AuthFormType.signIn),
+          '/signout': (BuildContext context) =>
+              SignUpView(authFormType: AuthFormType.signOut),
         },
       ),
     );
@@ -64,10 +75,22 @@ class HomeController extends StatelessWidget {
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;
-          return signedIn ? HomePage() : OnboardingScreen();
+          return signedIn ? FitnessAppHomeScreen() : OnboardingScreen();
         }
         return Container();
       },
     );
+  }
+}
+
+class HexColor extends Color {
+  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
+
+  static int _getColorFromHex(String hexColor) {
+    hexColor = hexColor.toUpperCase().replaceAll('#', '');
+    if (hexColor.length == 6) {
+      hexColor = 'FF' + hexColor;
+    }
+    return int.parse(hexColor, radix: 16);
   }
 }

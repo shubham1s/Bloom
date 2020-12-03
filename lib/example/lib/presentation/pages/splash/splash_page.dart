@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "${'handy'.tr()} ${'loading'.tr()}",
+            "${'Bloom'.tr()} ${'loading'.tr()}",
             style: Theme.of(context).textTheme.headline4,
           ),
           const SizedBox(height: 15),

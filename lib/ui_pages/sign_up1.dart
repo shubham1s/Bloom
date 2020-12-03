@@ -1,4 +1,4 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
+//import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:BLOOM_BETA/services/auth_service.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -10,7 +10,7 @@ import 'package:international_phone_input/international_phone_input.dart';
 
 final primaryColor = const Color(0xFF75A2EA);
 
-enum AuthFormType { signIn, signUp, reset, anonymous, convert, phone }
+enum AuthFormType { signIn, signUp, reset, anonymous, convert, phone, signOut }
 
 class SignUpView extends StatefulWidget {
   final AuthFormType authFormType;
@@ -24,26 +24,26 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   AuthFormType authFormType;
-  bool _showAppleSignIn = false;
+  // bool _showAppleSignIn = false;
 
   @override
   void initState() {
     super.initState();
 
-    _useAppleSignIn();
+    // _useAppleSignIn();
   }
 
-  _useAppleSignIn() async {
-    final isAvailable = await AppleSignIn.isAvailable();
-    setState(() {
-      _showAppleSignIn = isAvailable;
-    });
-  }
+  // _useAppleSignIn() async {
+  //   final isAvailable = await AppleSignIn.isAvailable();
+  //   setState(() {
+  //     _showAppleSignIn = isAvailable;
+  //   });
+  // }
 
   _SignUpViewState({this.authFormType});
 
   final formKey = GlobalKey<FormState>();
-  String _email, _password, _name, _warning, _phone;
+  String _email, _password, _name, _warning, _phone, _signOut;
 
   void switchFormState(String state) {
     formKey.currentState.reset();
@@ -53,6 +53,8 @@ class _SignUpViewState extends State<SignUpView> {
       });
     } else if (state == 'home') {
       Navigator.of(context).pop();
+    } else if (state == 'signOut') {
+      Navigator.of(context).pushNamed('/onb');
     } else {
       setState(() {
         authFormType = AuthFormType.signIn;
@@ -81,11 +83,18 @@ class _SignUpViewState extends State<SignUpView> {
         switch (authFormType) {
           case AuthFormType.signIn:
             await auth.signInWithEmailAndPassword(_email, _password);
-            Navigator.of(context).pushReplacementNamed('/');
+            Navigator.of(context).pushReplacementNamed('/home');
             break;
           case AuthFormType.signUp:
             await auth.createUserWithEmailAndPassword(_email, _password, _name);
             Navigator.of(context).pushReplacementNamed('/home');
+            break;
+          case AuthFormType.signOut:
+            await auth.signOut();
+            setState(() {
+              Navigator.of(context).pushReplacementNamed('/onb');
+            });
+
             break;
           case AuthFormType.reset:
             await auth.sendPasswordResetEmail(_email);
@@ -144,53 +153,54 @@ class _SignUpViewState extends State<SignUpView> {
           ));
     } else {
       return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(children: <Widget>[
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF0FCEF9),
-                    Color(0xFF0DF5F5),
-                    Color(0xFF0FCEF4),
-                    Color(0xFF0FCEF4),
-                  ],
-                  stops: [0.1, 0.4, 0.7, 0.9],
-                ),
-              ),
-            ),
-            Container(
-              child: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: _height * 0.025),
-                    showAlert(),
-                    SizedBox(height: _height * 0.025),
-                    buildHeaderText(),
-                    SizedBox(height: _height * 0.05),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          children: buildInputs() + buildButtons(),
-                        ),
-                      ),
+            value: SystemUiOverlayStyle.light,
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Stack(children: <Widget>[
+                Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF0FCEF9),
+                        Color(0xFF0DF5F5),
+                        Color(0xFF0FCEF4),
+                        Color(0xFF0FCEF4),
+                      ],
+                      stops: [0.1, 0.4, 0.7, 0.9],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Container(
+                  child: SafeArea(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: _height * 0.025),
+                        showAlert(),
+                        SizedBox(height: _height * 0.025),
+                        buildHeaderText(),
+                        SizedBox(height: _height * 0.05),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Form(
+                            key: formKey,
+                            child: Column(
+                              children: buildInputs() + buildButtons(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
             ),
-          ]),
-        ),
-      ));
+          ));
     }
   }
 
@@ -240,6 +250,8 @@ class _SignUpViewState extends State<SignUpView> {
       _headerText = "Reset Password";
     } else if (authFormType == AuthFormType.phone) {
       _headerText = "Phone Sign In";
+    } else if (authFormType == AuthFormType.signOut) {
+      _headerText = "  ";
     } else {
       _headerText = "Create New Account";
     }
@@ -315,7 +327,7 @@ class _SignUpViewState extends State<SignUpView> {
             decoration: buildSignUpInputDecoration("Enter Phone Number"),
             onPhoneNumberChange: onPhoneNumberChange,
             initialPhoneNumber: _phone,
-            initialSelection: 'IND',
+            initialSelection: 'IN',
             showCountryCodes: true),
       );
       textFields.add(SizedBox(height: 20));
@@ -360,6 +372,11 @@ class _SignUpViewState extends State<SignUpView> {
       _switchButtonText = "Cancel";
       _newFormState = "signIn";
       _submitButtonText = "Continue";
+      _showSocial = false;
+    } else if (authFormType == AuthFormType.signOut) {
+      _switchButtonText = "Create New Account";
+      _newFormState = "signOut";
+      _submitButtonText = "Sign In";
       _showSocial = false;
     } else {
       _switchButtonText = "Have an Account? Sign In";
@@ -426,7 +443,7 @@ class _SignUpViewState extends State<SignUpView> {
             color: Colors.white,
           ),
           SizedBox(height: 10),
-          buildAppleSignIn(_auth),
+          //  buildAppleSignIn(_auth),
           SizedBox(height: 10),
           GoogleSignInButton(
             onPressed: () async {
@@ -471,16 +488,16 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  Widget buildAppleSignIn(_auth) {
-    if (authFormType != AuthFormType.convert && _showAppleSignIn == true) {
-      return AppleSignInButton(
-        onPressed: () async {
-          await _auth.signInWithApple();
-          Navigator.of(context).pushReplacementNamed('/home');
-        },
-      );
-    } else {
-      return Container();
-    }
-  }
+//   Widget buildAppleSignIn(_auth) {
+//     if (authFormType != AuthFormType.convert && _showAppleSignIn == true) {
+//       return AppleSignInButton(
+//         onPressed: () async {
+//           await _auth.signInWithApple();
+//           Navigator.of(context).pushReplacementNamed('/home');
+//         },
+//       );
+//     } else {
+//       return Container();
+//     }
+//   }
 }
