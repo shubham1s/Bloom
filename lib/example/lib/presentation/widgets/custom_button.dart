@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../utils/extensions/translator.dart';
+import 'package:BLOOM_BETA/example/lib/presentation/pages/splash/translator.dart';
 
-/// Class to create custom button of [Handy]
+/// Class to create custom button of [Bloom]
 class CustomButton extends StatelessWidget {
   /// value to size width of button
   final double widthFactor;

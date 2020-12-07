@@ -26,8 +26,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter   
   flutter_bloc: ^6.0.1
-  equatable: ^1.2.3
-  toast: ^0.1.5
+  # equatable: ^1.2.3
+  # toast: ^0.1.5
   connectivity: ^0.4.9
   simple_animations: ^1.3.3
   font_awesome_flutter: ^8.8.1
@@ -35,10 +35,16 @@ dependencies:
   firebase_auth: ^0.18.3
   cloud_firestore: ^0.14.3
   google_sign_in: ^4.0.4
- # apple_sign_in: ^0.1.0
   health: ^2.0.9
   fit_kit: ^1.1.2
   smooth_star_rating: ^1.1.1
+  google_fonts: ^1.1.1
+  line_awesome_flutter: ^1.0.1
+  url_launcher: ^5.7.10
+  audioplayers: ^0.17.0
+  flutter_launcher_icons: ^0.8.1
+  flutter_launcher_name: ^0.0.1
+
 
   
 
@@ -54,7 +60,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  image_path: "Images/logoapp.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -72,6 +79,24 @@ flutter:
      - assets/langs/
      - assets/icons/
      - assets/fitness_app/
+     - Images/background.png
+     - Images/logo.png
+     - Images/1.png
+     - Images/2.png
+     - Images/3.png
+     - Images/4.png
+     - Images/5.png
+     - Images/6.png
+     - Images/7.png
+     - Images/8.png
+     - Images/9.png
+     - Images/10.png
+     - Images/11.png
+     - Images/12.png
+     - Images/13.png
+     - Images/14.png
+     - Images/break.png
+     - Images/createrImage.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

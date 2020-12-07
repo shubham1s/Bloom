@@ -32,6 +32,7 @@ class _FitDatState extends State<FitDat> {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             child: NotificationListener<OverscrollIndicatorNotification>(
+              // ignore: missing_return
               onNotification: (overscroll) {
                 overscroll.disallowGlow();
               },
@@ -42,7 +43,7 @@ class _FitDatState extends State<FitDat> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Welcome to the Health Tracker App... ',
+                        'Check Your overall parameters ',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 24),
                       ),

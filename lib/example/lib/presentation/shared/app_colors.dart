@@ -8,7 +8,7 @@ class AppColors {
   static const Color handyTextColor = Color(0xFF3F3D56);
 
   /// primary color of app
-  static const Color primaryColor = Color(0xFFC2D8FF);
+  static const Color primaryColor = Color(0xFF21BFBD);
 
   /// dark primary color of app
   static const Color primaryColorDark = Color(0xFF3F3D56);

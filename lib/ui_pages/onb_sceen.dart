@@ -37,6 +37,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Container(
@@ -92,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/1.png',
+                                  'assets/images/4.jpg',
                                 ),
                                 height: 300.0,
                                 width: 300.0,
@@ -119,7 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/2.png',
+                                  'assets/images/5.jpg',
                                 ),
                                 height: 300.0,
                                 width: 300.0,
@@ -146,7 +147,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Center(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/images/3.png',
+                                  'assets/images/6.jpeg',
                                 ),
                                 height: 300.0,
                                 width: 300.0,
@@ -159,7 +160,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              'Get personalised diet charts, and track your progress daily',
                               style: kSubtitleStyle,
                             ),
                           ],

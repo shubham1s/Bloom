@@ -1,4 +1,3 @@
-//import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:BLOOM_BETA/services/auth_service.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -24,26 +23,16 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   AuthFormType authFormType;
-  // bool _showAppleSignIn = false;
 
   @override
   void initState() {
     super.initState();
-
-    // _useAppleSignIn();
   }
-
-  // _useAppleSignIn() async {
-  //   final isAvailable = await AppleSignIn.isAvailable();
-  //   setState(() {
-  //     _showAppleSignIn = isAvailable;
-  //   });
-  // }
 
   _SignUpViewState({this.authFormType});
 
   final formKey = GlobalKey<FormState>();
-  String _email, _password, _name, _warning, _phone, _signOut;
+  String _email, _password, _name, _warning, _phone;
 
   void switchFormState(String state) {
     formKey.currentState.reset();
@@ -54,7 +43,9 @@ class _SignUpViewState extends State<SignUpView> {
     } else if (state == 'home') {
       Navigator.of(context).pop();
     } else if (state == 'signOut') {
-      Navigator.of(context).pushNamed('/onb');
+      setState(() {
+        authFormType = AuthFormType.signOut;
+      });
     } else {
       setState(() {
         authFormType = AuthFormType.signIn;
@@ -87,7 +78,7 @@ class _SignUpViewState extends State<SignUpView> {
             break;
           case AuthFormType.signUp:
             await auth.createUserWithEmailAndPassword(_email, _password, _name);
-            Navigator.of(context).pushReplacementNamed('/home');
+            Navigator.of(context).pushReplacementNamed('/input');
             break;
           case AuthFormType.signOut:
             await auth.signOut();
@@ -443,7 +434,6 @@ class _SignUpViewState extends State<SignUpView> {
             color: Colors.white,
           ),
           SizedBox(height: 10),
-          //  buildAppleSignIn(_auth),
           SizedBox(height: 10),
           GoogleSignInButton(
             onPressed: () async {
@@ -487,17 +477,4 @@ class _SignUpViewState extends State<SignUpView> {
       visible: visible,
     );
   }
-
-//   Widget buildAppleSignIn(_auth) {
-//     if (authFormType != AuthFormType.convert && _showAppleSignIn == true) {
-//       return AppleSignInButton(
-//         onPressed: () async {
-//           await _auth.signInWithApple();
-//           Navigator.of(context).pushReplacementNamed('/home');
-//         },
-//       );
-//     } else {
-//       return Container();
-//     }
-//   }
 }

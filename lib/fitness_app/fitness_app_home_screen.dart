@@ -1,5 +1,6 @@
-import 'package:BLOOM_BETA/example/lib/presentation/pages/home/custom_drawer.dart';
+import 'package:BLOOM_BETA/example/lib/presentation/pages/custom_drawer.dart';
 import 'package:BLOOM_BETA/example/lib/presentation/shared/app_colors.dart';
+import 'package:BLOOM_BETA/features/user.dart';
 import 'package:BLOOM_BETA/fitness_app/models/tabIcon_data.dart';
 import 'package:BLOOM_BETA/fitness_app/traning/training_screen.dart';
 import 'package:flutter/material.dart';
@@ -128,6 +129,15 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                 setState(() {
                   tabBody =
                       TrainingScreen(animationController: animationController);
+                });
+              });
+            } else if (index == 3) {
+              animationController.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody = ProfileView();
                 });
               });
             }

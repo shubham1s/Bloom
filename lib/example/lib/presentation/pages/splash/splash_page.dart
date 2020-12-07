@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../utils/extensions/translator.dart';
+import 'package:BLOOM_BETA/example/lib/presentation/pages/splash/translator.dart';
 
 /// Page to shown loading when the app is started
 /// it will be shown until app checks authentication
